@@ -2,6 +2,7 @@ package main
 
 import (
 	"proyectogo/internal/app"
+	"proyectogo/internal/app/handler"
 	"proyectogo/internal/infrastructure/config"
 	"proyectogo/internal/infrastructure/db"
 	"proyectogo/internal/infrastructure/http"
@@ -27,13 +28,13 @@ func main() {
 	urlService := app.NewURLService(urlRepo)
 
 	// Inicializar manejador
-	urlHandler := app.NewURLHandler(urlService)
+	urlHandler := handler.NewURLHandler(urlService)
 
 	// Configurar enrutador
 	router := gin.Default()
 	http.RegisterRoutes(router, urlHandler)
 
 	// Iniciar servidor
-	log.Info("Starting server at " + cfg.ServerAddress)
+	log.Println("Starting server at " + cfg.ServerAddress)
 	router.Run(cfg.ServerAddress)
 }

@@ -1,6 +1,8 @@
 package http
 
 import (
+	"proyectogo/internal/app/handler"
+
 	"github.com/gin-gonic/gin"
 )
 
