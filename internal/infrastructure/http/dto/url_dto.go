@@ -3,15 +3,12 @@ package dto
 import (
 	"fmt"
 	"reflect"
-
-	"github.com/google/uuid"
 )
 
 type URLDTO struct {
-	ID            uuid.UUID `json:"id" required:"true"`
-	Identificador string    `json:"identificador" required:"true"`
-	Url           string    `json:"dirurl" required:"true"`
-	Etiquetas     string    `json:"etiquetas"`
+	Identificador string `json:"identificador" required:"true"`
+	Url           string `json:"dirurl" required:"true"`
+	Etiquetas     string `json:"etiquetas"`
 }
 
 func ValidateStruct(s interface{}) error {
