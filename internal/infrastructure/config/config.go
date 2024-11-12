@@ -2,6 +2,7 @@ package config
 
 import (
 	"os"
+	e "proyectogo/internal/utils/env"
 )
 
 type Config struct {
@@ -10,9 +11,13 @@ type Config struct {
 }
 
 func LoadConfig() *Config {
+
+	Env := e.NewEnv()
+	Env.Env()
 	return &Config{
-		ServerAddress: getEnv("SERVER_ADDRESS", ":8080"),
-		DatabaseDSN:   getEnv("DATABASE_DSN", "host=database user=lando password=lando dbname=proyectogo port=5432 sslmode=disable"),
+
+		ServerAddress: getEnv("SERVER_ADDRESS", ":"+Env.ServerPort),
+		DatabaseDSN:   getEnv("DATABASE_DSN", "host="+Env.DbServer+" user="+Env.DbUser+" password="+Env.DbPassword+" dbname="+Env.DbName+" port="+Env.DbPort+" sslmode=disable"),
 	}
 }
 
