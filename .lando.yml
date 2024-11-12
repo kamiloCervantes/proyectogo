@@ -1,0 +1,33 @@
+name: proyectogo
+proxy:
+  appserver:
+    - proyectogo.lndo.site:8080
+
+services:
+  appserver:
+    type: go
+    run: "go ./main.go"
+    build:
+      - "go mod tidy"
+    overrides:
+      environment:
+        - DB_HOST=database
+        - DB_USER=lando
+        - DB_PASSWORD=lando
+        - DB_NAME=proyectogo
+        - SERVER_PORT=:8080
+
+  database:
+    portforward: true
+    creds:
+      user: lando
+      password: lando
+      database: proyectogo
+    config:
+      version: 13
+
+tooling:
+  go:
+    service: appserver
+  postgres:
+    service: database
