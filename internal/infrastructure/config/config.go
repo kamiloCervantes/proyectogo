@@ -17,7 +17,7 @@ func LoadConfig() *Config {
 	return &Config{
 
 		ServerAddress: getEnv("SERVER_ADDRESS", ":"+Env.ServerPort),
-		DatabaseDSN:   getEnv("DATABASE_DSN", "host=localhost user="+Env.DbName+" password="+Env.DbPassword+" dbname="+Env.DbName+" port="+Env.DbPort+" sslmode=disable"),
+		DatabaseDSN:   getEnv("DATABASE_DSN", "host="+Env.DbServer+" user="+Env.DbUser+" password="+Env.DbPassword+" dbname="+Env.DbName+" port="+Env.DbPort+" sslmode=disable"),
 	}
 }
 
