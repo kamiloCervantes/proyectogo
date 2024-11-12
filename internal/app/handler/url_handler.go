@@ -20,7 +20,7 @@ func NewURLHandler(service app.URLService) *URLHandler {
 }
 
 func (h *URLHandler) CreateURL(c *gin.Context) {
-	var url domain.URL
+	var url dto.URLDTO
 	if err := c.ShouldBindJSON(&url); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -31,7 +31,12 @@ func (h *URLHandler) CreateURL(c *gin.Context) {
 		return
 	}
 
-	if err := h.service.CreateURL(&url); err != nil {
+	domai := domain.URL{
+		Identificador: url.Identificador,
+		Url:           url.Url,
+		Etiquetas:     url.Etiquetas,
+	}
+	if err := h.service.CreateURL(&domai); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
