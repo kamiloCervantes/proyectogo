@@ -12,7 +12,7 @@ type Config struct {
 func LoadConfig() *Config {
 	return &Config{
 		ServerAddress: getEnv("SERVER_ADDRESS", ":8080"),
-		DatabaseDSN:   getEnv("DATABASE_DSN", "host=localhost user=postgres password=postgres dbname=myapp port=5432 sslmode=disable"),
+		DatabaseDSN:   getEnv("DATABASE_DSN", "host=localhost user=postgres password=camila dbname=db_url port=5432 sslmode=disable"),
 	}
 }
 

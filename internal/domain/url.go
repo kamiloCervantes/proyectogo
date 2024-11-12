@@ -5,8 +5,12 @@ import (
 )
 
 type URL struct {
-	ID            uuid.UUID `gorm:"type:uuid;primary_key;" json:"id"`
-	Identificador string    `json:"identificador"`
-	URL           string    `json:"url"`
-	Etiquetas     string    `json:"etiquetas"`
+	ID            uuid.UUID `gorm:"column:id;type:uuid;primaryKey;default:public.uuid_generate_v4()" json:"id"`
+	Identificador string    `gorm:"column:identificador;type:varchar(500)" json:"identificador"`
+	Url           string    `gorm:"column:dirurl;type:varchar(500)" json:"dirurl"`
+	Etiquetas     string    `gorm:"column:etiquetas;type:varchar(500)" json:"etiquetas"`
+}
+
+func (URL) TableName() string {
+	return "url"
 }
