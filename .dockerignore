@@ -1,0 +1,10 @@
+# Ignorar el binario generado
+/bin
+
+# Archivos de sistema
+.git
+node_modules
+.env
+Dockerfile
+docker-compose.yml
+.lando.yml
