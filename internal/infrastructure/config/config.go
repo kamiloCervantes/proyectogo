@@ -14,9 +14,14 @@ func LoadConfig() *Config {
 
 	Env := e.NewEnv()
 	Env.Env()
+
+	serverPort := Env.ServerPortQuery
+	if Env.Mode == "WRITE" {
+		serverPort = Env.ServerPortWrite
+	}
 	return &Config{
 
-		ServerAddress: getEnv("SERVER_ADDRESS", ":"+Env.ServerPort),
+		ServerAddress: getEnv("SERVER_ADDRESS", ":"+serverPort),
 		DatabaseDSN:   getEnv("DATABASE_DSN", "host="+Env.DbServer+" user="+Env.DbUser+" password="+Env.DbPassword+" dbname="+Env.DbName+" port="+Env.DbPort+" sslmode=disable"),
 	}
 }

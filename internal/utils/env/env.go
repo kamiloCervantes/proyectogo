@@ -8,16 +8,19 @@ import (
 )
 
 type Env struct {
-	DbUser     string
-	DbPassword string
-	DbServer   string
-	DbPort     string
-	DbName     string
-	SecretJwt  string
-	SslMode    string
-	ServerPort string
-	DocPath    string
-	DebugMode  bool
+	DbUser          string
+	DbPassword      string
+	DbServer        string
+	DbPort          string
+	DbName          string
+	SecretJwt       string
+	SslMode         string
+	ServerPort      string
+	DocPath         string
+	DebugMode       bool
+	Mode            string
+	ServerPortQuery string
+	ServerPortWrite string
 }
 
 func NewEnv() *Env {
@@ -43,6 +46,9 @@ func (c *Env) Env() {
 	c.SslMode = os.Getenv("SSLMODE")
 	c.ServerPort = os.Getenv("SERVER_PORT")
 	c.DocPath = os.Getenv("DOC_PATH")
+	c.Mode = os.Getenv("MODE")
 	c.DebugMode = os.Getenv("DEBUG_MODE") == "true"
+	c.ServerPortQuery = os.Getenv("SERVER_PORT_QUERY")
+	c.ServerPortWrite = os.Getenv("SERVER_PORT_WRITE")
 
 }

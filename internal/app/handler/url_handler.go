@@ -5,6 +5,8 @@ import (
 	"proyectogo/internal/app"
 	"proyectogo/internal/domain"
 
+	dto "proyectogo/internal/infrastructure/http/dto"
+
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 )
@@ -23,6 +25,12 @@ func (h *URLHandler) CreateURL(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+
+	if err := dto.ValidateStruct(url); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
 	if err := h.service.CreateURL(&url); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -31,8 +39,16 @@ func (h *URLHandler) CreateURL(c *gin.Context) {
 }
 
 func (h *URLHandler) GetURLByID(c *gin.Context) {
-	idParam := c.Param("id")
-	id, err := uuid.Parse(idParam)
+	var domainurl domain.URL
+	if err := c.ShouldBindUri(&domainurl); err != nil {
+		c.JSON(400, gin.H{
+			"error":   "no se pudo leer el body",
+			"details": err.Error(),
+		})
+		return
+	}
+
+	id, err := uuid.Parse(domainurl.ID.String())
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "ID inválido"})
 		return
